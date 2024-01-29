@@ -80,4 +80,4 @@ END
 
 1;
 
-#ABSTRACT: asdasd
+#ABSTRACT: A typemap for dealing with signal related types
