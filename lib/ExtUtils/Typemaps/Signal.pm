@@ -19,9 +19,7 @@ TYPEMAP
 INPUT
 T_SIGSET
 	if (SvROK($arg)) {
-		if (!SvOK($arg)) {
-			$var = NULL;
-		} else if (!SvROK($arg) || !sv_derived_from($arg, \"POSIX::SigSet\")) {
+		if (!sv_derived_from($arg, \"POSIX::SigSet\")) {
 			Perl_croak(aTHX_ \"$var is not of type POSIX::SigSet\");
 		} else {
 	" . ( $] >= 5.015002 ?
@@ -31,13 +29,15 @@ T_SIGSET
 			$var = INT2PTR(sigset_t*, tmp);\n"
 	) . "
 		}
-	} else {
+	} else if (SvOK($args)) {
 		int signo = (SvIOK($arg) || looks_like_number($arg)) && SvIV($arg) ? SvIV($arg) : whichsig(SvPV_nolen($arg));
 		SV* buffer = sv_2mortal(newSVpvn(\"\", 0));
 		sv_grow(buffer, sizeof(sigset_t));
 		$var = (sigset_t*)SvPV_nolen(buffer);
 		sigemptyset($var);
 		sigaddset($var, signo);
+	} else {
+		$var = NULL;
 	}
 
 T_SIGNO
