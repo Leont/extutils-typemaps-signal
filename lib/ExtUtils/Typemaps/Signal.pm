@@ -29,7 +29,7 @@ T_SIGSET
 			$var = INT2PTR(sigset_t*, tmp);\n"
 	) . "
 		}
-	} else if (SvOK($args)) {
+	} else if (SvOK($arg)) {
 		int signo = (SvIOK($arg) || looks_like_number($arg)) && SvIV($arg) ? SvIV($arg) : whichsig(SvPV_nolen($arg));
 		SV* buffer = sv_2mortal(newSVpvn(\"\", 0));
 		sv_grow(buffer, sizeof(sigset_t));

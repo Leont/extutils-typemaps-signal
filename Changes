@@ -1,6 +1,7 @@
 Revision history for ExtUtils-Typemaps-Signal
 
 {{$NEXT}}
+          - Fix sigset undef handling further
 
 0.003     2024-01-30 19:09:19+01:00 Europe/Brussels
           - Correctly handle undefined sigsets
