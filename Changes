@@ -1,6 +1,8 @@
 Revision history for ExtUtils-Typemaps-Signal
 
 {{$NEXT}}
+
+0.005     2024-01-31 22:01:24+01:00 Europe/Brussels
           - Use digraphs to allow for preprocessor conditionals in typemap
 
 0.004     2024-01-30 19:12:23+01:00 Europe/Brussels
