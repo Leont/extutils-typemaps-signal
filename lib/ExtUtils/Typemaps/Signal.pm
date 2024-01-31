@@ -22,12 +22,12 @@ T_SIGSET
 		if (!sv_derived_from($arg, \"POSIX::SigSet\")) {
 			Perl_croak(aTHX_ \"$var is not of type POSIX::SigSet\");
 		} else {
-	" . ( $] >= 5.015002 ?
-			"$var = (sigset_t *) SvPV_nolen(SvRV($arg));\n"
-		: "
+	%:if PERL_VERSION > 15 || PERL_VERSION == 15 && PERL_SUBVERSION > 2
+			$var = (sigset_t *) SvPV_nolen(SvRV($arg));
+	%:else
 			IV tmp = SvIV((SV*)SvRV($arg));
-			$var = INT2PTR(sigset_t*, tmp);\n"
-	) . "
+			$var = INT2PTR(sigset_t*, tmp);
+	%:endif
 		}
 	} else if (SvOK($arg)) {
 		int signo = (SvIOK($arg) || looks_like_number($arg)) && SvIV($arg) ? SvIV($arg) : whichsig(SvPV_nolen($arg));
@@ -64,9 +64,9 @@ T_SIGINFO
 	hv_stores(ret, \"uid\", newSViv($var.si_uid));
 	hv_stores(ret, \"status\", newSViv($var.si_status));
 	hv_stores(ret, \"band\", newSViv($var.si_band));
-#ifdef si_fd
-	hv_stores(ret, "fd", newSViv($var.si_fd));
-#endif
+	%:ifdef si_fd
+	hv_stores(ret, \"fd\", newSViv($var.si_fd));
+	%:endif
 	hv_stores(ret, \"value\", newSViv($var.si_value.sival_int));
 	hv_stores(ret, \"ptr\", newSVuv(PTR2UV($var.si_value.sival_ptr)));
 	hv_stores(ret, \"addr\", newSVuv(PTR2UV($var.si_addr)));
