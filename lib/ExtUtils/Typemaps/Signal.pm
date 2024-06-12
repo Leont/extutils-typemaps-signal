@@ -52,7 +52,7 @@ T_TIMESPEC
 
 OUTPUT
 T_TIMESPEC
-	$var.tv_sec + $var.tv_nsec / 1000000000.0;
+	sv_setnv($arg, $var.tv_sec + $var.tv_nsec / 1000000000.0);
 
 T_SIGINFO
 	{
