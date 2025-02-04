@@ -22,12 +22,12 @@ T_SIGSET
 		if (!sv_derived_from($arg, \"POSIX::SigSet\")) {
 			Perl_croak(aTHX_ \"$var is not of type POSIX::SigSet\");
 		} else {
-	%:if PERL_VERSION > 15 || PERL_VERSION == 15 && PERL_SUBVERSION > 2
+	\x{23}if PERL_VERSION > 15 || PERL_VERSION == 15 && PERL_SUBVERSION > 2
 			$var = (sigset_t *) SvPV_nolen(SvRV($arg));
-	%:else
+	\x{23}else
 			IV tmp = SvIV((SV*)SvRV($arg));
 			$var = INT2PTR(sigset_t*, tmp);
-	%:endif
+	\x{23}endif
 		}
 	} else if (SvOK($arg)) {
 		int signo = (SvIOK($arg) || looks_like_number($arg)) && SvIV($arg) ? SvIV($arg) : whichsig(SvPV_nolen($arg));
