@@ -1,6 +1,8 @@
 Revision history for ExtUtils-Typemaps-Signal
 
 {{$NEXT}}
+
+0.007     2025-02-04 04:33:55+01:00 Europe/Brussels
           - use "\x{23}" instead of "%:" to escape #
           - Eliminate siginfo_t from typemap
 
