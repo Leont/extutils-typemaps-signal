@@ -40,7 +40,7 @@ T_SIGSET
 	}
 
 T_SIGNO
-	$var = (SvIOK($arg) || looks_like_number($arg)) && SvIV($arg) ? SvIV($arg) : whichsig(SvPV_nolen($arg));
+	$var = (SvIOK($arg) || looks_like_number($arg)) ? SvIV($arg) : whichsig(SvPV_nolen($arg));
 
 T_TIMESPEC
 	if (SvROK($arg) && sv_derived_from($arg, \"Time::Spec\")) {
